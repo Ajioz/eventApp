@@ -2,9 +2,7 @@ import React from "react";
 import Link from "next/link";
 import classes from "./event-item.module.css";
 
-const EventItem = (props) => {
-  const { title, image, date, location, id } = props;
-
+const EventItem = ({ title, image, date, location, id }) => {
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",

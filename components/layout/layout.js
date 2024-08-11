@@ -1,4 +1,5 @@
 import React from "react";
+import MainHeader from "./main-header";
 
 const Layout = (props) => {
   return (

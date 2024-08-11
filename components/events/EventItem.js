@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import classes from "./event-item.module.css";
+import Button from "../ui/button";
 
 const EventItem = ({ title, image, date, location, id }) => {
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
@@ -25,7 +26,7 @@ const EventItem = ({ title, image, date, location, id }) => {
           </div>
         </div>
         <div className={classes.action}>
-          <Link href={exploreLInk}>Explore Event</Link>
+          <Button link={exploreLInk}>Explore Event</Button>
         </div>
       </div>
     </li>

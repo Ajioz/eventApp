@@ -11,6 +11,7 @@ const EventItem = ({ title, image, date, location, id }) => {
     month: "long",
     year: "numeric",
   });
+  
   const formattedAddress = location.replace(", ", "\n");
   const exploreLink = `/events/${id}`;
 

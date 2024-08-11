@@ -4,6 +4,7 @@ import EventList from "../components/events/eventList";
 
 const HomePage = () => {
   const featuredEvent = getFeaturedEvents();
+  console.log(typeof featuredEvent);
   return (
     <div>
       <EventList items={featuredEvent} />

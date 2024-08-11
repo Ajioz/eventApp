@@ -37,7 +37,7 @@ function EventsSearch(props) {
             <option value="6">June</option>
             <option value="7">July</option>
             <option value="8">August</option>
-            <option value="9">September</option>
+            <option value="9">Septemer</option>
             <option value="10">October</option>
             <option value="11">November</option>
             <option value="12">December</option>

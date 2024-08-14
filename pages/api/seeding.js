@@ -1,6 +1,6 @@
 // scripts/seed.js
-import connectToDatabase from "./db";
-import Event from "./model";
+import connectToDatabase from "../../dbConnect/db";
+import Event from "../../dbConnect/model";
 
 const DUMMY_EVENTS = [
   {

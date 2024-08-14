@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { getFeaturedEvents } from "../dummy-data";
-
+import { getFeaturedEvents } from "../helpers/api-utils";
 import EventList from "../components/events/eventList";
+import ErrorAlert from "../components/ui/error-alert";
 
-function HomePage() {
-  const featuredEvent = getFeaturedEvents();
+// import { getFeaturedEvents } from "../dummy-data";
 
+function HomePage(props) {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -22,9 +22,8 @@ function HomePage() {
         // Fetch the events after seeding
         const eventsResponse = await fetch("/api/events");
         const data = await eventsResponse.json();
-        console.log({ data });
+        console.log(data);
         setEvents(data);
-        
       } catch (error) {
         console.error("An error occurred:", error.message);
       }
@@ -32,17 +31,32 @@ function HomePage() {
 
     // Trigger seeding and fetching on component mount
     seedAndFetch();
-  }, [events]);
+  }, []);
 
-  // if(events.length < 1) return <p>loading...</p>
-
-  console.log(events);
+  if (events.length < 1)
+    return (
+      <>
+        <ErrorAlert>
+          <p>loading...</p>
+        </ErrorAlert>
+        ;
+      </>
+    );
 
   return (
     <div>
-      <EventList items={featuredEvent} />
+      <EventList items={props.events} />
     </div>
   );
 }
 
 export default HomePage;
+
+export async function getStaticProps(context) {
+  const featuredEvent = await getFeaturedEvents();
+  return {
+    props: {
+      events: featuredEvent,
+    },
+  };
+}

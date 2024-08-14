@@ -10,24 +10,25 @@ function HomePage() {
 
   useEffect(() => {
     async function seedDatabase() {
-      const response = await fetch("/api/seed");
-      if (response.ok) {
-        console.log("Database seeded!");
-      } else {
-        console.error("Seeding failed.");
+      try {
+        const response = await fetch("/api/seeding");
+        if (response.ok) console.log("Database seeded!");
+        else console.error("Seeding failed.");
+      } catch (error) {
+        console.log(error.message);
       }
     }
 
-    async function fetchEvents() {
+   /* async function fetchEvents() {
       const response = await fetch("/api/events");
       const data = await response.json();
       setEvents(data);
-    }
+    } */
 
     // Trigger seeding only once on first load
     seedDatabase().then(() => fetchEvents());
   }, []);
-
+  console.log(events);
   return (
     <div>
       <EventList items={featuredEvent} />

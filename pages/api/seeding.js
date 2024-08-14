@@ -1,15 +1,16 @@
-// scripts/seed.js
 import connectToDatabase from "../../dbConnect/db";
 import Event from "../../dbConnect/model";
 
-
 export default async function handler(req, res) {
+  console.log("I want to seed some data");
   try {
     await connectToDatabase();
-    
+
     // Check if the database is already seeded
     const existingEvents = await Event.find({});
+
     if (existingEvents.length > 0) {
+      console.log({ message: "Database already seeded!" });
       return res.status(200).json({ message: "Database already seeded!" });
     }
 
@@ -18,7 +19,7 @@ export default async function handler(req, res) {
         title: "Programming for everyone",
         description:
           "Everyone can learn to code! Yes, everyone! In this live event, we are going to go through all the key basics and get you started with programming as well.",
-        location: "Somestreet 25, 12345 San Somewhereo",
+        location: "Some Street 25, 12345 San Some where o",
         date: "2021-05-12",
         image: "images/coding-event.jpg",
         isFeatured: false,
@@ -49,6 +50,6 @@ export default async function handler(req, res) {
 
     res.status(200).json({ message: "Dummy events inserted!" });
   } catch (error) {
-    res.status(500).json({ message: 'Seeding failed!', error });
+    res.status(500).json({ message: "Seeding failed!", error });
   }
 }

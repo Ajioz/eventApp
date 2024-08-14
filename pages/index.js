@@ -9,26 +9,35 @@ function HomePage() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    async function seedDatabase() {
+    async function seedAndFetch() {
       try {
-        const response = await fetch("/api/seeding");
-        if (response.ok) console.log("Database seeded!");
-        else console.error("Seeding failed.");
+        // Seed the database
+        const seedResponse = await fetch("/api/seeding");
+        if (seedResponse.ok) {
+          console.log("Database seeded!");
+        } else {
+          console.error("Seeding failed.");
+        }
+
+        // Fetch the events after seeding
+        const eventsResponse = await fetch("/api/events");
+        const data = await eventsResponse.json();
+        console.log({ data });
+        setEvents(data);
+        
       } catch (error) {
-        console.log(error.message);
+        console.error("An error occurred:", error.message);
       }
     }
 
-   /* async function fetchEvents() {
-      const response = await fetch("/api/events");
-      const data = await response.json();
-      setEvents(data);
-    } */
+    // Trigger seeding and fetching on component mount
+    seedAndFetch();
+  }, [events]);
 
-    // Trigger seeding only once on first load
-    seedDatabase().then(() => fetchEvents());
-  }, []);
+  // if(events.length < 1) return <p>loading...</p>
+
   console.log(events);
+
   return (
     <div>
       <EventList items={featuredEvent} />

@@ -5,6 +5,7 @@ import EventList from "../../components/events/eventList";
 import ResultsTitle from "../../components/events/results-title";
 import Button from "../../components/ui/button";
 import ErrorAlert from "../../components/ui/error-alert.js";
+import Head from "next/head.js";
 // import useSWR from "swr";
 // import { redirect } from "next/dist/server/api-utils/index.js";
 
@@ -115,6 +116,10 @@ const FilteredEventPage = (props) => {
 
   return (
     <>
+      <Head>
+        <title>Filtered Event</title>
+        <meta name="description" content={`Events for ${numYear}-${numMonth}`} />
+      </Head>
       <ResultsTitle date={date} />
       <EventList items={filteredValidEvent} />
     </>

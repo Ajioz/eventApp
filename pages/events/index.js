@@ -18,6 +18,13 @@ const AllEventPage = (props) => {
 
   return (
     <>
+      <Head>
+        <title>Event Search</title>
+        <meta
+          name="description"
+          content="Events search"
+        />
+      </Head>
       <EventsSearch onSearch={findEventsHandler} />
       <EventList items={events} />
     </>

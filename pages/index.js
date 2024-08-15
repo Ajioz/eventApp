@@ -22,7 +22,7 @@ function HomePage(props) {
         // Fetch the events after seeding
         const eventsResponse = await fetch("/api/events");
         const data = await eventsResponse.json();
-        console.log(data);
+        // console.log(data);
         setEvents(data);
       } catch (error) {
         console.error("An error occurred:", error.message);
@@ -58,5 +58,6 @@ export async function getStaticProps(context) {
     props: {
       events: featuredEvent,
     },
+    revalidate: 1800, //30 minutes
   };
 }

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { getAllEvents } from "../../helpers/api-utils";
 import EventsSearch from "../../components/events/events-search";
 import EventList from "../../components/events/EventList";
+import Head from 'next/head';
 
 const AllEventPage = (props) => {
   const { events } = props;

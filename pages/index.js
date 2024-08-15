@@ -48,6 +48,10 @@ function HomePage(props) {
 
   return (
     <div>
+      <Head>
+        <title>sharpEvents</title>
+        <meta name="description" content="Modern events for smart tech in GENZ"/>
+      </Head>
       <EventList items={props.events} />
     </div>
   );

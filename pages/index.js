@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { getFeaturedEvents } from "../helpers/api-utils";
 import EventList from "../components/events/eventList";
 import ErrorAlert from "../components/ui/error-alert";
-
+import Head from "next/head";
 // import { getFeaturedEvents } from "../dummy-data";
+
+
+
 
 function HomePage(props) {
   const [events, setEvents] = useState([]);

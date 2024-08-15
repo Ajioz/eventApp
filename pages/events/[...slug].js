@@ -29,7 +29,7 @@ const FilteredEventPage = (props) => {
         console.error("An error occurred:", error.message);
       }
     }
-    
+
     // fetching on component mount
     Fetch();
 
@@ -55,6 +55,13 @@ const FilteredEventPage = (props) => {
   const numYear = Number(filteredYear);
   const numMonth = Number(filteredMonth);
 
+  const pageHeader = (
+    <Head>
+      <title>Filtered Event</title>
+      <meta name="description" content={`Events for ${numYear}-${numMonth}`} />
+    </Head>
+  );
+
   if (
     isNaN(numYear) ||
     isNaN(numMonth) ||
@@ -65,6 +72,7 @@ const FilteredEventPage = (props) => {
   ) {
     return (
       <>
+        {pageHeader}
         <ErrorAlert>
           <p>Invalid filter, please adjust your value!</p>
         </ErrorAlert>
@@ -101,6 +109,7 @@ const FilteredEventPage = (props) => {
   if (!filteredValidEvent || filteredValidEvent.length === 0) {
     return (
       <>
+        {pageHeader}
         <ErrorAlert>
           <p>No event found for the chosen filter!</p>
         </ErrorAlert>
@@ -116,10 +125,7 @@ const FilteredEventPage = (props) => {
 
   return (
     <>
-      <Head>
-        <title>Filtered Event</title>
-        <meta name="description" content={`Events for ${numYear}-${numMonth}`} />
-      </Head>
+      {pageHeader}
       <ResultsTitle date={date} />
       <EventList items={filteredValidEvent} />
     </>

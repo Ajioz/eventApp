@@ -6,24 +6,28 @@ const userForm = () => {
   const emailRef = useRef();
   const feedbackRef = useRef();
 
-  const formHandler = async(e) => {
+  const formHandler = async (e) => {
     e.preventDefault();
     const name = nameRef.current.value;
     const email = emailRef.current.value;
     const feedback = feedbackRef.current.value;
 
-    const sendData = {name, email, feedback}
+    const sendData = { name, email, feedback };
 
-    const response = await fetch('/api/feedback', {
-      method: 'POST',
+    const response = await fetch("/api/feedback", {
+      method: "POST",
       body: JSON.stringify(sendData),
       headers: {
-        'Content-Type': 'application/json'
-      }
-      
+        "Content-Type": "application/json",
+      },
     });
+    const data = await response.json(); // Make sure to await this
+    console.log(data);
+    // Reset the form fields
+    nameRef.current.value = "";
+    emailRef.current.value = "";
+    feedbackRef.current.value = "";
   };
-
 
   return (
     <div className={classes.body}>

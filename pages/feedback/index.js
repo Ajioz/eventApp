@@ -1,12 +1,25 @@
 import React from "react";
+import { buildFeedbackPath, extractFeedback } from "../api/feedback";
 
 const FeedbackPage = () => {
-    return <ul>{props.feedbackItems.map(item => <li key={item.id}>{item.feedback }</li>)}</ul>;
+  return (
+    <ul>
+      {props.feedbackItems.map((item) => (
+        <li key={item.id}>{item.feedback}</li>
+      ))}
+    </ul>
+  );
 };
 
 export default FeedbackPage;
 
+export async function getStaticProps() {
+  const filePath = buildFeedbackPath();
+  const data = await extractFeedback(filePath);
 
-export async function getStaticProps(){
-
+  return {
+    props: {
+      feedbackItems: data,
+    },
+  };
 }

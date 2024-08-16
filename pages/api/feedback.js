@@ -1,7 +1,15 @@
 import fs from "fs/promises";
 import path from "path";
 
-// const fileHelper = () => { }
+export const buildFeedbackPath = () => {
+  return path.join(process.cwd(), "data", "feedback.json");
+};
+
+export const extractFeedback = async (filePath) => {
+  const fileData = await fs.readFile(filePath);
+  const data = JSON.parse(fileData);
+  return data;
+};
 
 async function handler(req, res) {
   if (req.method === "POST") {
@@ -15,9 +23,8 @@ async function handler(req, res) {
       };
 
       //store that in a file system acting as database
-      const filePath = path.join(process.cwd(), "data", "feedback.json");
-      const fileData = await fs.readFile(filePath);
-      const data = JSON.parse(fileData);
+      const filePath = buildFeedbackPath();
+      const data = await extractFeedback(filePath);
 
       data.push(newFeedback);
       await fs.writeFile(filePath, JSON.stringify(data));
@@ -27,9 +34,8 @@ async function handler(req, res) {
     }
   } else {
     try {
-      const filePath = path.join(process.cwd(), "data", "feedback.json");
-      const fileData = await fs.readFile(filePath);
-      const data = JSON.parse(fileData);
+     const filePath = buildFeedbackPath();
+     const data = await extractFeedback(filePath);
       return res.status(200).json({ feedBacK: data });
     } catch (error) {
       console.log("Failed to retrieve data");

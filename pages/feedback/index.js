@@ -1,7 +1,7 @@
 import React from "react";
 import { buildFeedbackPath, extractFeedback } from "../api/feedback";
 
-const FeedbackPage = () => {
+const FeedbackPage = (props) => {
   return (
     <ul>
       {props.feedbackItems.map((item) => (

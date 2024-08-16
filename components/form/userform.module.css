@@ -1,21 +1,15 @@
-/* Reset some default styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+.body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
   background-color: #f4f7f6;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 90vh;
   color: #333;
 }
 
-.form-container {
+.formContainer {
   background: #fff;
   padding: 30px;
   border-radius: 10px;
@@ -24,27 +18,32 @@ body {
   width: 100%;
 }
 
-.form-title {
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Adds space between form elements */
+}
+
+.formTitle {
   text-align: center;
   font-size: 24px;
   margin-bottom: 20px;
   color: #4a4a4a;
 }
 
-.form-group {
-  margin-bottom: 15px;
+.formGroup {
+  display: flex;
+  flex-direction: column;
 }
 
-.form-group label {
-  display: block;
+.formGroup label {
   margin-bottom: 5px;
   font-weight: 600;
   color: #4a4a4a;
 }
 
-.form-group input,
-.form-group textarea {
-  width: 100%;
+.formGroup input,
+.formGroup textarea {
   padding: 12px;
   border-radius: 5px;
   border: 1px solid #d0d0d0;
@@ -52,20 +51,19 @@ body {
   background-color: #f4f7f6;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
+.formGroup input:focus,
+.formGroup textarea:focus {
   border-color: #007bff;
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
 }
 
-.form-group textarea {
+.formGroup textarea {
   height: 120px;
   resize: vertical;
 }
 
-.submit-button {
-  width: 100%;
+.submitButton {
   padding: 12px;
   font-size: 16px;
   font-weight: 600;
@@ -77,24 +75,24 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
+.submitButton:hover {
   background-color: #0056b3;
 }
 
-.submit-button:active {
+.submitButton:active {
   background-color: #003d7f;
 }
 
 @media (max-width: 480px) {
-  .form-container {
+  .formContainer {
     padding: 20px;
   }
 
-  .form-title {
+  .formTitle {
     font-size: 20px;
   }
 
-  .submit-button {
+  .submitButton {
     padding: 10px;
   }
 }

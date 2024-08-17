@@ -5,7 +5,9 @@ const FeedbackPage = (props) => {
   return (
     <ul>
       {props.feedbackItems.map((item) => (
-        <li key={item.id}>{item.feedback} <button>Show details</button></li>
+        <li key={item.id}>
+          {item.feedback} <button>Show details</button>
+        </li>
       ))}
     </ul>
   );

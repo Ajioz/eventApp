@@ -34,8 +34,8 @@ async function handler(req, res) {
     }
   } else {
     try {
-     const filePath = buildFeedbackPath();
-     const data = await extractFeedback(filePath);
+      const filePath = buildFeedbackPath();
+      const data = await extractFeedback(filePath);
       return res.status(200).json({ feedBacK: data });
     } catch (error) {
       console.log("Failed to retrieve data");

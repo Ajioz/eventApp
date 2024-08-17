@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { buildFeedbackPath, extractFeedback } from "../api/feedback";
 
 const FeedbackPage = (props) => {
+
+  const [feedbackData, setFeedbackData] = useState()
+  const showDetails = async (id) => {
+    const res = await fetch(`/api/${id}`);
+    const data = await res.json();
+    setFeedbackData(data);
+
+  };
+
   return (
     <ul>
       {props.feedbackItems.map((item) => (
         <li key={item.id}>
-          {item.feedback} <button>Show details</button>
+          {item.feedback}{" "}
+          <button onClick={showDetails.bind(null, item.id)}>
+            Show details
+          </button>
         </li>
       ))}
     </ul>

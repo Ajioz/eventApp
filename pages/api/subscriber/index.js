@@ -1,17 +1,8 @@
-import { MongoClient } from "mongodb";
+import { connectDB, insertDoc } from "../../../helpers/db-utils";
 
 const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
-};
-
-const connectDB = async () => {
-  return await MongoClient.connect(process.env.MONGODB_URL);
-};
-
-const insertDoc = async (client, doc) => {
-  const db = client.db();
-  return await db.collection("emails").insertOne(doc);
 };
 
 const subHandler = async (req, res) => {
@@ -30,7 +21,7 @@ const subHandler = async (req, res) => {
     }
 
     try {
-      await insertDoc(client, email);
+      await insertDoc(client, "emails", email);
       client.close();
     } catch (error) {
       return res.status(500).json({ message: "Inserting data failed" });

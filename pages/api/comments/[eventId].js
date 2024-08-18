@@ -1,14 +1,6 @@
-import { MongoClient } from "mongodb";
 import { isValidEmail } from ".";
+import { connectDB, insertDoc } from "../../../helpers/db-utils";
 
-const connectDB = async () => {
-  return await MongoClient.connect(process.env.MONGODB_URL);
-};
-
-const insertDoc = async (client, doc) => {
-  const db = client.db();
-  return await db.collection("comments").insertOne(doc);
-};
 
 const commentHandler = async (req, res) => {
   let client;
@@ -35,7 +27,7 @@ const commentHandler = async (req, res) => {
     const onAddComment = { email, name, text, eventId };
 
     try {
-      await insertDoc(client, onAddComment);
+      await insertDoc(client, "comments", onAddComment);
       client.close();
     } catch (error) {
       return res.status(500).json({ message: "Inserting data failed" });

@@ -1,12 +1,37 @@
-import classes from './newsletter-registration.module.css';
+import classes from "./newsletter-registration.module.css";
+import React, { useRef } from "react";
+
+const isValidEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
 
 function NewsletterRegistration() {
-  function registrationHandler(event) {
-    event.preventDefault();
+  const subRef = useRef();
+  async function registrationHandler(e) {
+    e.preventDefault();
 
     // fetch user input (state or refs)
+    const subscriber = subRef.current.value;
+
     // optional: validate input
+    if (!isValidEmail(subscriber)) return;
+
+    const newSubscriber = {
+      email: subscriber,
+    };
+
     // send valid data to API
+    const res = await fetch("/api/subscriber", {
+      method: "POST",
+      body: newSubscriber,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    console.log(data);
+    if (data.status) subRef.current.value = "";
   }
 
   return (
@@ -15,10 +40,11 @@ function NewsletterRegistration() {
       <form onSubmit={registrationHandler}>
         <div className={classes.control}>
           <input
-            type='email'
-            id='email'
-            placeholder='Your email'
-            aria-label='Your email'
+            type="email"
+            id="email"
+            placeholder="Your email"
+            aria-label="Your email"
+            ref={subRef}
           />
           <button>Register</button>
         </div>

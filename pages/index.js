@@ -3,7 +3,7 @@ import { getFeaturedEvents } from "../helpers/api-utils";
 import EventList from "../components/events/eventList";
 import ErrorAlert from "../components/ui/error-alert";
 import Head from "next/head";
-// import { getFeaturedEvents } from "../dummy-data";
+import NewsletterRegistration from "../components/input/newsletter-registration";
 
 
 
@@ -50,8 +50,12 @@ function HomePage(props) {
     <div>
       <Head>
         <title>All Events</title>
-        <meta name="description" content="Up to date and Modern events for smart tech in GENZ"/>
+        <meta
+          name="description"
+          content="Up to date and Modern events for smart tech in GENZ"
+        />
       </Head>
+      <NewsletterRegistration />
       <EventList items={props.events} />
     </div>
   );

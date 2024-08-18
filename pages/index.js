@@ -11,6 +11,7 @@ import NewsletterRegistration from "../components/input/newsletter-registration"
 function HomePage(props) {
   const [events, setEvents] = useState([]);
 
+  //used to seed data and fetch, using mongoose connector
   useEffect(() => {
     async function seedAndFetch() {
       try {

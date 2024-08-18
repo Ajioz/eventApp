@@ -1,10 +1,5 @@
 import { useRef, useState } from "react";
 import classes from "./new-comment.module.css";
-import {
-  addComment,
-  commentPath,
-  extractComment,
-} from "../../pages/api/comments";
 
 const isValidEmail = (email) => {
   const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

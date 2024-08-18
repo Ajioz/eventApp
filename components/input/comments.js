@@ -30,7 +30,7 @@ function Comments(props) {
       method: "POST",
       body: JSON.stringify(commentData),
       headers: {
-        "Content-Type:": "application/json",
+        "Content-Type": "application/json",
       },
     });
 
@@ -44,7 +44,7 @@ function Comments(props) {
         {showComments ? "Hide" : "Show"} Comments
       </button>
       {showComments && <NewComment onAddComment={addCommentHandler} />}
-      {showComments && <CommentList items={comments} />}
+      {/* {showComments && <CommentList items={comments} />} */}
     </section>
   );
 }

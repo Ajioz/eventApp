@@ -8,3 +8,5 @@ const subHandler = async (req, res) => {
     }
   }
 };
+
+export default subHandler;

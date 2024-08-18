@@ -24,7 +24,7 @@ function NewsletterRegistration() {
     // send valid data to API
     const res = await fetch("/api/subscriber", {
       method: "POST",
-      body: newSubscriber,
+      body: JSON.stringify(newSubscriber),
       headers: {
         "Content-Type": "application/json",
       },

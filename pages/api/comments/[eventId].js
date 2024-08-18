@@ -1,13 +1,14 @@
 import { MongoClient } from "mongodb";
+import { isValidEmail } from ".";
 
-
-const commentHandler = async(req, res) =>{
+const commentHandler = async (req, res) => {
+  const client = await MongoClient.connect(process.env.MONGODB_URL);
   try {
     const eventId = req.query.eventId;
-    
+
     if (req.method === "POST") {
-      const { email, name, comment } = req.body;
-      
+      const { email, name, text } = req.body;
+
       if (
         !isValidEmail(email) ||
         !name ||
@@ -17,25 +18,26 @@ const commentHandler = async(req, res) =>{
       ) {
         return res.status(422).json({ status: false, email: "Invalid email" });
       }
-      const onAddComment = { email, name, comment, eventId };
-      
-      console({ onAddComment });
-      const client = await MongoClient.connect(process.env.MONGODB_URL);
-      const db = client.db();
-      const result = await db.collection("comments").insertOne({ onAddComment });
+      const onAddComment = { email, name, text, eventId };
 
-      console({result});
+      const db = client.db();
+      const result = await db.collection("comments").insertOne(onAddComment);
+
 
       client.close();
-
-      return res.status(201).json({ status: true, message: "added successfully", result });
-      
+      if (result) {
+        return res
+          .status(201)
+          .json({ status: true, message: "added successfully", result });
+      }
     } else {
-      // return res.status(200).json({ status: true, comments });
+       const db = client.db();
+       const result = await db.collection("comments").insertOne(onAddComment);
+      // return res.status(200).json({ status: true, text });
     }
   } catch (error) {
     console.log("Could not process request, server error..");
   }
-}
+};
 
 export default commentHandler;

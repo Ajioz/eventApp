@@ -6,7 +6,6 @@ import classes from "./comments.module.css";
 
 function Comments(props) {
   const { eventId } = props;
-  console.log(eventId);
 
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState();
@@ -35,7 +34,7 @@ function Comments(props) {
       },
     });
 
-    const data = response.json();
+    const data = await response.json();
     console.log(data);
   }
 

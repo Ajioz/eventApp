@@ -6,6 +6,7 @@ import classes from "./comments.module.css";
 
 function Comments(props) {
   const { eventId } = props;
+  console.log(eventId);
 
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState();

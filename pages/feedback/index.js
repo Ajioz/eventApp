@@ -3,6 +3,7 @@ import { buildFeedbackPath, extractFeedback } from "../api/feedback";
 
 const FeedbackPage = (props) => {
   const [feedbackData, setFeedbackData] = useState();
+
   const showDetails = async (id) => {
     const res = await fetch(`/api/feedback/${id}`);
     const data = await res.json();

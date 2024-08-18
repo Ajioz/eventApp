@@ -1,5 +1,10 @@
 import { useRef, useState } from "react";
 import classes from "./new-comment.module.css";
+import {
+  addComment,
+  commentPath,
+  extractComment,
+} from "../../pages/api/comments";
 
 const isValidEmail = (email) => {
   const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -68,3 +73,17 @@ function NewComment(props) {
 }
 
 export default NewComment;
+
+// export async function getServerSideProps(context) {
+//   const filePath = commentPath();
+//   const commentData = await extractComment(filePath);
+//   function onAddComment({ email, name, text }) {
+//     return { email, name, text };
+//   }
+//   commentData.push(onAddComment);
+//   addComment(filePath, commentData);
+
+//   return {
+//     props: { onAddComment },
+//   };
+// }

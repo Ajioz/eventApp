@@ -66,7 +66,7 @@ function Comments(props) {
     } catch (error) {
       notificationCtx.showNotification({
         title: "Error!",
-        message: error.message || "Something went wrong",
+        message: error.message || "Sending comment went wrong, really",
         status: "error",
       });
     }

@@ -14,6 +14,7 @@ function NewsletterRegistration() {
 
   async function registrationHandler(e) {
     e.preventDefault();
+    let data;
 
     // fetch user input (state or refs)
     const subscriber = subRef.current.value;
@@ -40,8 +41,8 @@ function NewsletterRegistration() {
           "Content-Type": "application/json",
         },
       });
-      const data = await res.json();
-      if (data.ok) {
+      data = await res.json();
+      if (data.status) {
         notificationCtx.showNotification({
           title: "Success!",
           message: "Successfully registered for newsletter",
@@ -50,7 +51,7 @@ function NewsletterRegistration() {
       } else {
         notificationCtx.showNotification({
           title: "Error!",
-          message: error.message || "Something went wrong",
+          message: "Something went wrong",
           status: "error",
         });
       }

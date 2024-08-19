@@ -1,5 +1,6 @@
 import classes from "./newsletter-registration.module.css";
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
+import NotificationContext from "../../store/notification-context";
 
 const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -7,7 +8,10 @@ const isValidEmail = (email) => {
 };
 
 function NewsletterRegistration() {
+  const notificationCtx = useContext(NotificationContext);
+
   const subRef = useRef();
+
   async function registrationHandler(e) {
     e.preventDefault();
 
@@ -21,16 +25,42 @@ function NewsletterRegistration() {
       email: subscriber,
     };
 
-    // send valid data to API
-    const res = await fetch("/api/subscriber", {
-      method: "POST",
-      body: JSON.stringify(newSubscriber),
-      headers: {
-        "Content-Type": "application/json",
-      },
+    notificationCtx.showNotification({
+      title: "Signing up...",
+      message: "Registering for newsletter",
+      status: "pending",
     });
-    const data = await res.json();
-    console.log(data);
+
+    // send valid data to API
+    try {
+      const res = await fetch("/api/subscriber", {
+        method: "POST",
+        body: JSON.stringify(newSubscriber),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      if (data.ok) {
+        notificationCtx.showNotification({
+          title: "Success!",
+          message: "Successfully registered for newsletter",
+          status: "success",
+        });
+      } else {
+        notificationCtx.showNotification({
+          title: "Error!",
+          message: error.message || "Something went wrong",
+          status: "error",
+        });
+      }
+    } catch (error) {
+      notificationCtx.showNotification({
+        title: "Error!",
+        message: error.message || "Something went wrong",
+        status: "error",
+      });
+    }
     if (data.status) subRef.current.value = "";
   }
 

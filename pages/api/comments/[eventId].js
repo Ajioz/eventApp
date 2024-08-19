@@ -1,6 +1,5 @@
 import { isValidEmail } from ".";
-import { connectDB, insertDoc } from "../../../helpers/db-utils";
-
+import { connectDB, getAllDocs, insertDoc } from "../../../helpers/db-utils";
 
 const commentHandler = async (req, res) => {
   let client;
@@ -14,6 +13,7 @@ const commentHandler = async (req, res) => {
 
   if (req.method === "POST") {
     const { email, name, text } = req.body;
+    let result;
 
     if (
       !isValidEmail(email) ||
@@ -27,7 +27,7 @@ const commentHandler = async (req, res) => {
     const onAddComment = { email, name, text, eventId };
 
     try {
-      await insertDoc(client, "comments", onAddComment);
+      result = await insertDoc(client, "comments", onAddComment);
       client.close();
     } catch (error) {
       return res.status(500).json({ message: "Inserting data failed" });
@@ -39,13 +39,13 @@ const commentHandler = async (req, res) => {
   } else {
     let document;
     try {
-      const db = client.db();
-      document = await db
-        .collection("comments")
-        .find()
-        .sort({ _id: -1 })
-        .toArray();
-      client.close();
+      document = await getAllDocs(
+        client,
+        "comments",
+        { _id: -1 },
+        { eventId: eventId } // this is  added to filter comment
+      );
+      client.close(); 
     } catch (error) {
       return res.status(500).json({ message: "Fetching comments failed" });
     }
